@@ -13,7 +13,7 @@ public class DificultyMenu : MonoBehaviour
         playerData.difficulty = 1;
 
         // Checamos el maxLevel y cambiamos de escena.
-        StartCoroutine(playerData.GetPlayerLogs());
+        StartCoroutine(playerData.GetLogs());
         GoToZoo();
     }
 
@@ -23,7 +23,7 @@ public class DificultyMenu : MonoBehaviour
         playerData.difficulty = 2;
 
         // Checamos el maxLevel y cambiamos de escena.
-        StartCoroutine(playerData.GetPlayerLogs());
+        StartCoroutine(playerData.GetLogs());
         GoToZoo();
     }
 

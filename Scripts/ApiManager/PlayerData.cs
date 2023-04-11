@@ -24,7 +24,7 @@ public class PlayerData : MonoBehaviour
     }
 
     // Con el api checamos cual es el nivel más alto de un juagador.
-    public IEnumerator GetPlayerLogs(){
+    public IEnumerator GetLogs(){
         // Api Url
         string url = "http://127.0.0.1:8000/api/view-logs-student/";
 
@@ -50,7 +50,7 @@ public class PlayerData : MonoBehaviour
                 // Parseamos los logs y buscamos nivel más alto
                 if(response.status == "success"){
                     int max = 0;
-                    foreach(Log log in response.logs){
+                    foreach(LogReceive log in response.logs){
                         if(log.difficulty == difficulty && log.level > maxLevel){
                             if(difficulty == 1 && log.grade >= 80.0f){
                                 max = log.level;
@@ -61,8 +61,41 @@ public class PlayerData : MonoBehaviour
                     }
                     maxLevel = max;
                 }else{
-                    maxLevel = 1;
+                    maxLevel = 0;
                 }
+            }
+        }
+    }
+
+    // Mandamos datos de juego a la DB.
+    public IEnumerator SendLog(int level, float grade, float time){
+        // Api Url
+        string url = "http://127.0.0.1:8000/api/create-log";
+
+        // Creamos el LogSend.
+        LogSend sendLog = new LogSend();
+        sendLog.classroom = group;
+        sendLog.role_number = listNumber;
+        sendLog.difficulty = difficulty;
+        sendLog.level = level;
+        sendLog.grade = grade;
+        sendLog.time = time;
+
+        // Lo convertimos a json.
+        string json = JsonUtility.ToJson(sendLog);
+
+        // Hacemos la Web Request
+        using (UnityWebRequest www = UnityWebRequest.Put(url, json))
+        {
+            yield return www.SendWebRequest();
+ 
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Log sent successfully");
             }
         }
     }
