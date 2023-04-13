@@ -5,5 +5,5 @@ public class Response
 {
     // Response Attributes.
     public string status;
-    public List<Log> logs;
+    public List<LogReceive> logs;
 }

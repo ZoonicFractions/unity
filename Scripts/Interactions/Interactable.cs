@@ -9,7 +9,9 @@ public class Interactable : MonoBehaviour
     public bool isInRange;
     public KeyCode interactKey;
     public UnityEvent interactAction;
-    public GameObject interactMessage;
+    public GameObject interactMessageActive;
+    public GameObject interactMessageUnactive;
+    public int level;
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +35,12 @@ public class Interactable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            interactMessage.SetActive(true);
-            isInRange = true;
-            Debug.Log("Esta en rango");
+            GameObject logObject = GameObject.Find("ContenedorScript");
+            PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+            isInRange = level <= playerData.maxLevel + 1;
+            interactMessageActive.SetActive(isInRange);
+            interactMessageUnactive.SetActive(!isInRange);
         }
     }
 
@@ -43,9 +48,9 @@ public class Interactable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            interactMessage.SetActive(false);
             isInRange = false;
-            Debug.Log("salió del rango");
+            interactMessageActive.SetActive(isInRange);
+            interactMessageUnactive.SetActive(isInRange);
         }
     }
 }

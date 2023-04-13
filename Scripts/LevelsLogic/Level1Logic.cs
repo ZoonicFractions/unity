@@ -21,6 +21,7 @@ public class Level1Logic : MonoBehaviour
     private int repetitions;
 
     private List<int> score = new();
+    private int correct = 0;
 
     private void Awake()
     {
@@ -38,8 +39,8 @@ public class Level1Logic : MonoBehaviour
     private void newRound()
     {
         System.Random rand = new System.Random();
-        quantity1 = rand.Next(10) + 1;
-        quantity2 = rand.Next(10) + 1;
+        quantity1 = rand.Next(5) + 1;
+        quantity2 = rand.Next(5) + 1;
 
         total = quantity1 + quantity2;
 
@@ -52,34 +53,30 @@ public class Level1Logic : MonoBehaviour
     }
 
 
-     public void ScoreUpdate()
+    public void ScoreUpdate()
     {
         if(total > 1)
         {
             total -= 1;
             fruitLeft.text = "Te falta repartir " + total.ToString() + " manzanas";
-        }
-        else if (total == 1)
-        {
+        }else if (total == 1){
             total -= 1;
-            fruitLeft.text = "¡Ya comieron Suficiente!";
+            fruitLeft.text = "Ya comieron Suficiente!";
 
             if (quantity1 == 0 && quantity2 == 0)
             {
                 score.Add(1);
-                fruitLeft.text = fruitLeft.text + "\n¡BIEN HECHO!";
+                fruitLeft.text = fruitLeft.text + "\nï¿½BIEN HECHO!";
                 repetitions += 1;
             }
             else
             {
                 score.Add(0);
-                fruitLeft.text = fruitLeft.text + "\n¡No repartiste la comida correctamente!";
+                fruitLeft.text = fruitLeft.text + "\nNo repartiste la comida correctamente!";
                 repetitions += 1;
             }
-        }
-        else if (total <=0)
-        {
-            fruitLeft.text = "¡Repartiste demasiada comida!";
+        }else if (total <= 0){
+            fruitLeft.text = "Repartiste demasiada comida!";
         }
 
         if(total == 0)
@@ -91,8 +88,6 @@ public class Level1Logic : MonoBehaviour
             }
             else if (repetitions == 5)
             {
-                int correct = 0;
-
                 for(int i = 0; i < 5; i++)
                 {
                     if (score[i] == 1)
@@ -102,7 +97,7 @@ public class Level1Logic : MonoBehaviour
                     Debug.Log("Ronda " + (i+1) + ": " + score[i]);
                 }
 
-                finish.text = "¡Nivel Completado!\n acertaste " + correct + " de 5 preguntas";
+                finish.text = "Nivel Completado!\n acertaste " + correct + " de 5 preguntas";
 
                 Invoke("finishLevel", 7.0f);
             }
