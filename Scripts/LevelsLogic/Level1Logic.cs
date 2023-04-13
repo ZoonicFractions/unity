@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,10 +14,12 @@ public class Level1Logic : MonoBehaviour
     public TextMeshProUGUI insructions;
     public TextMeshProUGUI fruitLeft;
     public TextMeshProUGUI finish;
+    public TextMeshProUGUI timer;
 
     private int quantity1;
     private int quantity2;
     private int total;
+    private float timerValue;
 
     private int repetitions;
 
@@ -32,9 +35,23 @@ public class Level1Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+        StartCoroutine(playerData.SendLog(1, 34.5f, 15.6f));
+
+        timerValue = 0;
         newRound();
     }
 
+    void Update()
+    {
+        timerValue += Time.deltaTime;
+    }
+
+    void OnGUI(){
+        string value = Math.Round(timerValue).ToString();
+        timer.text = "Timer: " + value.Substring(0, value.Length) + " s.";
+    }
 
     private void newRound()
     {
@@ -51,7 +68,6 @@ public class Level1Logic : MonoBehaviour
             "Reparte las " + total.ToString() + " manzanas";
 
     }
-
 
     public void ScoreUpdate()
     {

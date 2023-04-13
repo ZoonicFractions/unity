@@ -12,6 +12,10 @@ public class PlayerData : MonoBehaviour
     public int difficulty;
     public int maxLevel;
 
+    // Game Attributes.
+    public float gameTime;
+    public float gameGrade;
+
     // Método que imprime los atributos de PlayerData en fromato JSON.
     public string ToString(){
         string txt = "{ ";
