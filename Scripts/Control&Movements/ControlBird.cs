@@ -12,7 +12,7 @@ public class ControlBird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,5 +28,11 @@ public class ControlBird : MonoBehaviour
         // tilt the plane up/down based on up/down arrow keys
         transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime * verticalInput);
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime * horizontalInput);
+
+        if (Input.GetKey(KeyCode.E))
+            transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.Q))
+            transform.Rotate(-Vector3.back * rotationSpeed * Time.deltaTime);
     }
 }
