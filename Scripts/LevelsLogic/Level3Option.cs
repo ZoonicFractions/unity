@@ -18,11 +18,7 @@ public class Level3Option : MonoBehaviour
 
     private void GenerateOptions()
     {
-        if (fracID == Level3Vars.correctID)
-        {
-            f = Level3Vars.res;
-        }
-        else f = Fraction.GenerateRandomFraction();
+        f = Level3Vars.fractions[fracID];
     }
 
     // Update is called once per frame
@@ -31,6 +27,7 @@ public class Level3Option : MonoBehaviour
         num.text = f.num.ToString();
         den.text = f.den.ToString();
         OptionVars.exitTrigger = false;
+        OptionVars.collision = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,7 +37,7 @@ public class Level3Option : MonoBehaviour
         {
             OptionVars.correct = true;
             Level3Vars.correctAnswered++;
-        }
+        } else OptionVars.correct = false;
         Debug.Log("total " + Level3Vars.total);
         Debug.Log("correctans " + Level3Vars.correctAnswered);
     }
@@ -49,9 +46,19 @@ public class Level3Option : MonoBehaviour
     {
         OptionVars.exitTrigger = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        OptionVars.collision = true;
+        if(fracID == Level3Vars.correctID)
+        {
+            OptionVars.correct = true;
+        }
+        else OptionVars.correct = false;
+    }
 }
 
 public class OptionVars
 {
-    public static bool correct = false, exitTrigger = false;
+    public static bool correct = false, exitTrigger = false, collision = false;
 }

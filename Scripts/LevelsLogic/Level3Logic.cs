@@ -23,6 +23,7 @@ public class Level3Logic : MonoBehaviour
         GenerateImgType();
         GenerateFractions();
         GenerateCorrectID();
+        GenerateOptions();
     }
 
     private void GenerateCorrectID()
@@ -56,6 +57,26 @@ public class Level3Logic : MonoBehaviour
         }
     }
 
+    private void GenerateOptions()
+    {
+        for(int i = 0, j = 0; i < 3; i++)
+        {
+            if (i == Level3Vars.correctID)
+                Level3Vars.fractions[i] = Level3Vars.res;
+            else Level3Vars.fractions[i] = Fraction.GenerateRandomFraction();
+
+            if(i > 0)
+            {
+                while(Level3Vars.fractions[i] == Level3Vars.fractions[j])
+                {
+                    Level3Vars.fractions[i] = Fraction.GenerateRandomFraction();
+                }
+                j++;
+            }
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -70,6 +91,7 @@ public class Level3Logic : MonoBehaviour
             SetScore();
             GenerateFractions();
             GenerateCorrectID();
+            GenerateOptions();
             score.text = Level3Vars.score.ToString();
         }
     }
@@ -86,4 +108,5 @@ public class Level3Vars
     public static Fraction res;
     public static int correctID, total = 0, correctAnswered = 0;
     public static float score;
+    public static Fraction[] fractions = new Fraction[3];
 }
