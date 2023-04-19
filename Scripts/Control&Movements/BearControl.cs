@@ -7,6 +7,7 @@ public class BearControl : MonoBehaviour
     Transform playerTransform;
     private Animator animator;
     private float offset = 3;
+    private float animationDuration = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +19,18 @@ public class BearControl : MonoBehaviour
     void Update()
     {
         Vector3 playerPosition = playerTransform.position;
+        if (Time.time < animationDuration)
+        {
+            animator.SetTrigger("Run Forward");
+            transform.position = new Vector3(playerPosition.x, playerPosition.y, Mathf.Clamp(
+            playerPosition.z - offset, playerPosition.z - offset, playerPosition.z - offset + 9));
+            return;
+        }
         if (animator != null)
         {
-            if (transform.position.z != playerPosition.z)
-            {
-                animator.SetTrigger("Run Forward");
-            }
-            if(Input.GetKey("space"))
+            
+            animator.SetTrigger("Run Forward");
+            if (Input.GetKeyDown("space"))
             {
                 animator.SetTrigger("Jump");
             }
