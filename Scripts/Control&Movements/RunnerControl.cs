@@ -12,7 +12,7 @@ public class RunnerControl : MonoBehaviour
 
     private Animator animator;
 
-    private float originalStepOffset;
+    private float originalStepOffset, time, timeDelay;
 
 
     private float animationDuration = 3;
@@ -22,6 +22,7 @@ public class RunnerControl : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
         animator = GetComponent<Animator>();
+        time = 0; timeDelay = 5;
     }
 
     // Update is called once per frame
@@ -70,9 +71,28 @@ public class RunnerControl : MonoBehaviour
 
         movement.y = yspeed;
 
+        time += Time.deltaTime;
+        if (Level3Vars.total >= 10)
+        {
+            Debug.Log(time);
+            if (time > timeDelay)
+            {
+                Debug.Log("Im here");
+                movement = Vector3.zero;
+                if(animator != null)
+                {
+                    animator.SetTrigger("stop");
+                }
+            }
+        }
+        else
+        {
+            if (time > timeDelay) time = 0;
+        }
+
         characterController.Move(movement);
 
-        if(animator != null)
+        if (animator != null)
         {
             if(!OptionVars.correct && OptionVars.exitTrigger)
             {

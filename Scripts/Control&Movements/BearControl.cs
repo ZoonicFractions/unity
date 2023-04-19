@@ -48,6 +48,7 @@ public class BearControl : MonoBehaviour
         {
             animator.ResetTrigger("Run Forward");
             animator.SetTrigger("Idle");
+            transform.position = new Vector3(0, 0,transform.position.z);
         }
     }
 }

@@ -27,7 +27,6 @@ public class Level3Option : MonoBehaviour
         num.text = f.num.ToString();
         den.text = f.den.ToString();
         OptionVars.exitTrigger = false;
-        OptionVars.collision = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,19 +45,9 @@ public class Level3Option : MonoBehaviour
     {
         OptionVars.exitTrigger = true;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        OptionVars.collision = true;
-        if(fracID == Level3Vars.correctID)
-        {
-            OptionVars.correct = true;
-        }
-        else OptionVars.correct = false;
-    }
 }
 
 public class OptionVars
 {
-    public static bool correct = false, exitTrigger = false, collision = false;
+    public static bool correct = false, exitTrigger = false;
 }
