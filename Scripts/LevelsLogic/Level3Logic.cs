@@ -10,11 +10,25 @@ using Random = UnityEngine.Random;
 public class Level3Logic : MonoBehaviour
 {
     private Fraction f1, f2;
-    public TextMeshProUGUI num1, num2, den1, den2, score;
+
+    public TextMeshProUGUI num1, num2, den1, den2, score, timer, victoryText;
+
+    public GameObject victoryObject;
+    public GameObject gameBoard;
+
     private const int MAX_MULT = 10;
     public List<Texture> imgs;
     private RawImage img;
     private int imageType = 0;
+
+    private float timerValue;
+
+    private void Awake()
+    {
+        gameBoard.SetActive(true);
+        victoryObject.SetActive(false);
+        Time.timeScale = 1f;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +71,14 @@ public class Level3Logic : MonoBehaviour
         }
     }
 
+    private void EndLevel()
+    {
+        Level3Vars.total = 0;
+        Level3Vars.correctAnswered = 0;
+
+        Time.timeScale = 0f;
+    }
+
     private void GenerateOptions()
     {
         for(int i = 0, j = 0; i < 3; i++)
@@ -94,6 +116,27 @@ public class Level3Logic : MonoBehaviour
             GenerateOptions();
             score.text = Level3Vars.score.ToString();
         }
+
+        if (Level3Vars.total < 10)
+        {
+            timerValue += Time.deltaTime;
+        }
+        else if (Level3Vars.total == 10)
+        {
+            victoryObject.SetActive(true);
+            victoryText.text += "\nAcertaste " + Level3Vars.correctAnswered + " de " + Level3Vars.total;
+            victoryText.text += "\nTu puntje es: " + Level3Vars.score;
+            gameBoard.SetActive(false);
+
+            Invoke("EndLevel", 2f);
+            Level3Vars.total += 1;
+        }
+    }
+
+    void OnGUI()
+    {
+        string value = Math.Round(timerValue).ToString();
+        timer.text = "Timer: " + value.Substring(0, value.Length) + " s.";
     }
 
     private void SetScore()

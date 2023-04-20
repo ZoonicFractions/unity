@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using static Cinemachine.CinemachineFreeLook;
+using System;
 
 public class Level2_1Logic : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class Level2_1Logic : MonoBehaviour
     public TextMeshProUGUI buttonRight;
 
     public TextMeshProUGUI instructions;
+    public TextMeshProUGUI timer;
 
     public Rigidbody bread;
     private Rigidbody breadClone;
@@ -25,6 +26,8 @@ public class Level2_1Logic : MonoBehaviour
     private int valueAns2;
     private int answer;
     private int pickResult;
+
+    private float timerValue;
 
     public int range = 10;
 
@@ -45,12 +48,24 @@ public class Level2_1Logic : MonoBehaviour
     void Start()
     {
         Play();
+        timerValue = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Cursor.lockState = CursorLockMode.None;
+
+        if (round < 10)
+        {
+            timerValue += Time.deltaTime;
+        }
+    }
+
+    void OnGUI()
+    {
+        string value = Math.Round(timerValue).ToString();
+        timer.text = "Timer: " + value.Substring(0, value.Length) + " s.";
     }
 
     private void Play()
@@ -119,7 +134,7 @@ public class Level2_1Logic : MonoBehaviour
         generateOptions();
     }
 
-    private void generateOptions()
+    public void generateOptions()
     {
         System.Random rand = new System.Random();
         pickResult = rand.Next(3);
@@ -291,7 +306,7 @@ public class Level2_1Logic : MonoBehaviour
 
     private void finishLevel()
     {
-        SceneManager.LoadScene("Scenes/Zoo");
+        SceneManager.LoadScene("Scenes/Level2");
     }
 
 }

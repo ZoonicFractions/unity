@@ -5,11 +5,12 @@ using UnityEngine;
 public class KeepScore : MonoBehaviour
 {
 
-    public static int Score = 0;
     public static int vaca = 0;
     public static int cerdo = 0;
     public static int gallina = 0;
-    public static int suma = 0;
+    public static int total = 0;
+
+    public Level1_2Logic script;
     
     // Start is called before the first frame update
     void Start()
@@ -20,25 +21,60 @@ public class KeepScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    void OnCollisionEnter(Collision collider){
-        Debug.Log(collider.gameObject.name);
-        if(collider.gameObject.name == "Vaca"){
+    public void OnTriggerEnter(Collider collider)
+    {
+        if(collider.gameObject.tag == "Vaca"){
             vaca += 100;
-        } else if(collider.gameObject.name == "Cerdo"){
+            total += 100;
+            script.ScoreUpdate();
+        } else if(collider.gameObject.tag == "Cerdo"){
             cerdo += 50;
-        } else if(collider.gameObject.name == "Gallina") {
+            total += 50;
+            script.ScoreUpdate();
+        } else if(collider.gameObject.tag == "Gallina") {
             gallina += 25;
+            total += 25;
+            script.ScoreUpdate();
         }
 
-        suma = vaca + gallina + cerdo;
     }
 
-    
+    public void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "Vaca")
+        {
+            vaca -= 100;
+            total -= 100;
+            script.ScoreUpdate();
+        }
+        else if (collider.gameObject.tag == "Cerdo")
+        {
+            cerdo -= 50;
+            total -= 50;
+            script.ScoreUpdate();
+        }
+        else if (collider.gameObject.tag == "Gallina")
+        {
+            gallina -= 25;
+            total -= 25;
+            script.ScoreUpdate();
+        }
+    }
 
-    void OnGUI(){
-        GUI.Box(new Rect(100,100,200,100), "Vacas (valor =100): " + vaca.ToString() + "\n Cerdos (Valor = 50): " + cerdo.ToString() + "\nGallinas (Valor = 25): " + gallina.ToString() + "\ntotal: " + suma);
+
+
+    public void OnGUI(){
+        GUI.Box(new Rect(100,100,200,100), "Vacas (valor =100): " + vaca.ToString() + "\n Cerdos (Valor = 50): " + cerdo.ToString() + "\nGallinas (Valor = 25): " + gallina.ToString() + "\ntotal: " + total);
+    }
+
+    public void ResetScore()
+    {
+        total = 0;
+        vaca = 0;
+        cerdo = 0;
+        gallina = 0;
     }
 }

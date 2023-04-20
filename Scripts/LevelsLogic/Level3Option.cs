@@ -31,19 +31,26 @@ public class Level3Option : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Level3Vars.total++;
-        if (fracID == Level3Vars.correctID)
+        if (other.tag == "Player") 
         {
-            OptionVars.correct = true;
-            Level3Vars.correctAnswered++;
-        } else OptionVars.correct = false;
-        Debug.Log("total " + Level3Vars.total);
-        Debug.Log("correctans " + Level3Vars.correctAnswered);
+            Level3Vars.total++;
+            if (fracID == Level3Vars.correctID)
+            {
+                OptionVars.correct = true;
+                Level3Vars.correctAnswered++;
+            }
+            else OptionVars.correct = false;
+            Debug.Log("total " + Level3Vars.total);
+            Debug.Log("correctans " + Level3Vars.correctAnswered);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        OptionVars.exitTrigger = true;
+        if(other.tag == "Player")
+        {
+            OptionVars.exitTrigger = true;
+        }
     }
 }
 

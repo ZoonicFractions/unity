@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Level2Logic : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class Level2Logic : MonoBehaviour
     public TextMeshProUGUI LeftText;
     public TextMeshProUGUI MiddleText;
     public TextMeshProUGUI RightText;
+    public TextMeshProUGUI timer;
 
     public TextMeshProUGUI instructions;
 
@@ -29,9 +32,12 @@ public class Level2Logic : MonoBehaviour
     public int range = 10;
 
     private int score;
+    private bool crossed;
 
     private int round;
     public string side;
+
+    private float timerValue;
 
     public bool triggered;
 
@@ -40,7 +46,10 @@ public class Level2Logic : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Play();
+        timerValue = 0;
+ 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -48,7 +57,12 @@ public class Level2Logic : MonoBehaviour
         side = script.side;
         triggered = script.triggered;
 
-        if(triggered == true)
+        if (round < 10)
+        {
+            timerValue += Time.deltaTime;
+        }
+
+        if (triggered == true)
         {
             if(side == "left")
             {
@@ -66,13 +80,19 @@ public class Level2Logic : MonoBehaviour
         }
     }
 
+    void OnGUI()
+    {
+        string value = Math.Round(timerValue).ToString();
+        timer.text = "Timer: " + value.Substring(0, value.Length) + " s.";
+    }
+
     private void Play()
     {
 
         // Starting Position
         crow.transform.position = new Vector3(0,20,0);
         crow.transform.rotation = new Quaternion(0f, -1f, 0f, 0f);
-
+        crossed = false;
         // Access to public variable
         script.side = " ";
         side = " ";
@@ -218,7 +238,7 @@ public class Level2Logic : MonoBehaviour
 
     public void CheckLeft()
     {
-        if (triggered == true && side == "left")
+        if (triggered == true && side == "left" && crossed == false)
         {
             
 
@@ -250,12 +270,13 @@ public class Level2Logic : MonoBehaviour
             {
                 Invoke("NextLevel", 5.0f);
             }
+            crossed = true;
         }
     }
 
     public void CheckMiddle()
     {
-        if (triggered == true && side == "middle")
+        if (triggered == true && side == "middle" && crossed == false)
         {
 
 
@@ -287,12 +308,13 @@ public class Level2Logic : MonoBehaviour
             {
                 Invoke("NextLevel", 5.0f);
             }
+            crossed = true;
         }
     }
 
     public void CheckRight()
     {
-        if (triggered == true && side == "right")
+        if (triggered == true && side == "right" && crossed == false)
         {
             if (RightText.text == answer.ToString())
             {
@@ -320,6 +342,7 @@ public class Level2Logic : MonoBehaviour
             {
                 Invoke("NextLevel", 5.0f);
             }
+            crossed = true;
         }
     }
 

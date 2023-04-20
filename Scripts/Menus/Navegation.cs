@@ -9,4 +9,9 @@ public class Navegation : MonoBehaviour
     {
         SceneManager.LoadScene("Scenes/Zoo");
     }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene("Scenes/Level3");
+    }
 }
