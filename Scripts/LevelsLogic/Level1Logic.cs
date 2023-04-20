@@ -35,17 +35,16 @@ public class Level1Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject logObject = GameObject.Find("ContenedorScript");
-        PlayerData playerData = logObject.GetComponent<PlayerData>();
-        StartCoroutine(playerData.SendLog(1, 34.5f, 15.6f));
-
-        timerValue = 0;
         newRound();
+        timerValue = 0;
     }
 
     void Update()
     {
-        timerValue += Time.deltaTime;
+        if(repetitions < 5)
+        {
+            timerValue += Time.deltaTime;
+        }
     }
 
     void OnGUI(){
@@ -131,7 +130,15 @@ public class Level1Logic : MonoBehaviour
     }
 
     private void finishLevel()
-    {
-        SceneManager.LoadScene("Scenes/Zoo");
+    {   
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Storing player data
+        playerData.gameTime = timerValue;
+        playerData.gameGrade = (correct / 5.0f) * 100.0f;
+
+        SceneManager.LoadScene("Scenes/Level1.2");
     }
 }

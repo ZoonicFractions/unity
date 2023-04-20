@@ -72,7 +72,7 @@ public class PlayerData : MonoBehaviour
     }
 
     // Mandamos datos de juego a la DB.
-    public IEnumerator SendLog(int level, float grade, float time){
+    public IEnumerator SendLog(int level){
         // Api Url
         string url = "http://127.0.0.1:8000/api/create-log";
 
@@ -82,8 +82,8 @@ public class PlayerData : MonoBehaviour
         sendLog.role_number = listNumber;
         sendLog.difficulty = difficulty;
         sendLog.level = level;
-        sendLog.grade = grade;
-        sendLog.time = time;
+        sendLog.grade = gameGrade;
+        sendLog.time = gameTime;
 
         // Lo convertimos a json.
         string json = JsonUtility.ToJson(sendLog);
@@ -100,8 +100,17 @@ public class PlayerData : MonoBehaviour
             else
             {
                 Debug.Log("Log sent successfully");
+                
+                // Checking the new max level.
+                StartCoroutine(GetLogs());
             }
         }
+    }
+
+    // Method that resets to 0, gameTime and gameGrade
+    public void Reset(){
+        gameTime = 0.0f;
+        gameGrade = 0.0f;
     }
     
     // Start is called before the first frame update
