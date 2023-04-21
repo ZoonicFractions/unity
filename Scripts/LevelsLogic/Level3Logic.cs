@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class Level3Logic : MonoBehaviour
@@ -73,10 +74,26 @@ public class Level3Logic : MonoBehaviour
 
     private void EndLevel()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Storing player data
+        playerData.gameTime = timerValue;
+        playerData.gameGrade = Level3Vars.score;
+
+        // Sending data to server
+        StartCoroutine(playerData.SendLog(3));
+
+        // Resetting player for next game.
+        playerData.Reset();
+
+        // Resetting level
         Level3Vars.total = 0;
         Level3Vars.correctAnswered = 0;
 
-        Time.timeScale = 0f;
+        // Changing Scene
+        SceneManager.LoadScene("Scenes/Zoo");
     }
 
     private void GenerateOptions()
@@ -126,7 +143,7 @@ public class Level3Logic : MonoBehaviour
             victoryObject.SetActive(true);
             victoryText.text += "\nAcertaste " + Level3Vars.correctAnswered + " de " + Level3Vars.total;
             victoryText.text += "\nTu puntje es: " + Level3Vars.score;
-            gameBoard.SetActive(false);
+            gameBoard.SetActive(true);
 
             Invoke("EndLevel", 2f);
             Level3Vars.total += 1;

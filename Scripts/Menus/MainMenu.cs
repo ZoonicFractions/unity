@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
             playerData.listNumber = int.Parse(rn);
 
             // Cambiamos de Escena.
-            SceneManager.LoadScene("MenuDificultad");
+            SceneManager.LoadScene("Scenes/MenuDificultad");
         }else{
             // Mostramos mensaje de Error.
             textDisplay.color = new Color32(168, 0, 0, 255);

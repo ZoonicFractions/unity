@@ -133,8 +133,24 @@ public class Level1_2Logic : MonoBehaviour
             }
         }
     }
+
     private void finishLevel()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Storing player data
+        playerData.gameTime += timerValue;
+        playerData.gameGrade = (playerData.gameGrade + (correctAns / 5.0f) * 100.0f) / 2.0f;
+
+        // Sending data to server
+        StartCoroutine(playerData.SendLog(1));
+
+        // Resetting player for next game.
+        playerData.Reset();
+
+        // Changing scene
         SceneManager.LoadScene("Scenes/Zoo");
     }
 

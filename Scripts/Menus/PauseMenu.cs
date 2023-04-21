@@ -50,6 +50,14 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnMenu()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Reseting player data
+        playerData.Reset();
+
+        // Change scene
         SceneManager.LoadScene("Scenes/MenuPrincipal");
         gameIsPaused = false;
         Resume();
@@ -58,6 +66,14 @@ public class PauseMenu : MonoBehaviour
 
     public void SelectDificulty()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Reseting player data
+        playerData.Reset();
+
+        // Change scene
         SceneManager.LoadScene("Scenes/MenuDificultad");
         gameIsPaused = false;
         Resume();
@@ -66,6 +82,14 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnZoo()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Reseting player data
+        playerData.Reset();
+
+        // Change scene
         SceneManager.LoadScene("Scenes/Zoo");
         gameIsPaused = false;
         Resume();

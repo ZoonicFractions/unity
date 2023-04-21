@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Defeat : MonoBehaviour
 {
@@ -34,19 +35,21 @@ public class Defeat : MonoBehaviour
             }
             else
             {
-                defeatText.text = "Por poco! A la próxima lo conseguirás";
+                defeatText.text = "Por poco! A la prï¿½xima lo conseguirï¿½s";
                 defeatText.text += "\nContestaste " + Level3Vars.correctAnswered + " de " + Level3Vars.total;
             }
 
-            EndLevel();
+            Invoke("EndLevel", 3f);
         }  
     }
 
     private void EndLevel()
     {
+        // Resetting level
         Level3Vars.total = 0;
         Level3Vars.correctAnswered = 0;
-
-        Time.timeScale = 0f;
+        
+        // Changing Scene
+        SceneManager.LoadScene("Scenes/Level3");
     }
 }

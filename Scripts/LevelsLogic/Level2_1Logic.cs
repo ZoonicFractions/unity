@@ -123,12 +123,12 @@ public class Level2_1Logic : MonoBehaviour
 
         if (valueAns1 >= valueAns2)
         {
-            instructions.text = "¿Qué pajaro tiene la respuesta correcta de la siguiente operación?\n" +
+            instructions.text = "ï¿½Quï¿½ pajaro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
             valueAns1.ToString() + op + valueAns2.ToString();
         }
         else
         {
-            instructions.text = "¿Qué pajaro tiene la respuesta correcta de la siguiente operación?\n" +
+            instructions.text = "ï¿½Quï¿½ pajaro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
             valueAns2.ToString() + op + valueAns1.ToString();
         }
         generateOptions();
@@ -204,18 +204,18 @@ public class Level2_1Logic : MonoBehaviour
             {
                 score += 10; 
                
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
                 
             }
             else
             {
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
             clicked = true;
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -239,17 +239,17 @@ public class Level2_1Logic : MonoBehaviour
             {
                 score += 10;
                
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
             }
             else
             {
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
             clicked = true;
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -273,17 +273,17 @@ public class Level2_1Logic : MonoBehaviour
             {
                 score += 10;
                
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
             }
             else
             {
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
             clicked = true;
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -306,7 +306,22 @@ public class Level2_1Logic : MonoBehaviour
 
     private void finishLevel()
     {
-        SceneManager.LoadScene("Scenes/Level2");
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Storing player data
+        playerData.gameTime += timerValue;
+        playerData.gameGrade = (playerData.gameGrade + score * 1.0f) / 2.0f;
+
+        // Sending data to server
+        StartCoroutine(playerData.SendLog(2));
+
+        // Resetting player for next game.
+        playerData.Reset();
+
+        // Changing Scene
+        SceneManager.LoadScene("Scenes/Zoo");
     }
 
 }

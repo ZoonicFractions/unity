@@ -50,7 +50,6 @@ public class Level2Logic : MonoBehaviour
  
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -131,7 +130,7 @@ public class Level2Logic : MonoBehaviour
                     answer = valueAns2;
                     valueAns2 = answer * valueAns1;
 
-                    instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
+                    instructions.text = "ï¿½Quï¿½ aro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
             valueAns2.ToString() + op + valueAns1.ToString();
                 }
                 else if (valueAns2 >= valueAns1)
@@ -139,7 +138,7 @@ public class Level2Logic : MonoBehaviour
                     answer = valueAns1;
                     valueAns1 = answer * valueAns2;
 
-                    instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
+                    instructions.text = "ï¿½Quï¿½ aro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
                 }
             }
@@ -148,7 +147,7 @@ public class Level2Logic : MonoBehaviour
                 answer = valueAns1;
                 valueAns1 = answer * valueAns2;
 
-                instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
+                instructions.text = "ï¿½Quï¿½ aro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
             }
             else if (valueAns2 >= valueAns1)
@@ -156,7 +155,7 @@ public class Level2Logic : MonoBehaviour
                 answer = valueAns2;
                 valueAns2 = answer * valueAns1;
 
-                instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
+                instructions.text = "ï¿½Quï¿½ aro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
             valueAns2.ToString() + op + valueAns1.ToString();
             }
         }
@@ -168,7 +167,7 @@ public class Level2Logic : MonoBehaviour
 
         if(selectOp != 3)
         {
-            instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
+            instructions.text = "ï¿½Quï¿½ aro tiene la respuesta correcta de la siguiente operaciï¿½n?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
         }
         
@@ -246,20 +245,20 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
 
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(LeftText.text);
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
 
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -284,20 +283,20 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
 
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(MiddleText.text);
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
 
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -320,18 +319,18 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "¡CORRECTO!";
+                instructions.text = "ï¿½CORRECTO!";
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(RightText.text);
-                instructions.text = "¡INCORRECTO!";
+                instructions.text = "ï¿½INCORRECTO!";
             }
 
             if (round == 10)
             {
-                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\nï¿½Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -348,6 +347,14 @@ public class Level2Logic : MonoBehaviour
 
     private void NextLevel()
     {
+        // Obtaining DontDestroy Object
+        GameObject logObject = GameObject.Find("ContenedorScript");
+        PlayerData playerData = logObject.GetComponent<PlayerData>();
+
+        // Storing player data
+        playerData.gameTime = timerValue;
+        playerData.gameGrade = score * 1.0f;
+
         SceneManager.LoadScene("Level2.1");
     }
 
