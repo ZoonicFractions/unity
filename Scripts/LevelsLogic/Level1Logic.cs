@@ -81,17 +81,17 @@ public class Level1Logic : MonoBehaviour
             if (quantity1 == 0 && quantity2 == 0)
             {
                 score.Add(1);
-                fruitLeft.text = fruitLeft.text + "\n�BIEN HECHO!";
+                fruitLeft.text = fruitLeft.text + "\n¡BIEN HECHO!";
                 repetitions += 1;
             }
             else
             {
                 score.Add(0);
-                fruitLeft.text = fruitLeft.text + "\nNo repartiste la comida correctamente!";
+                fruitLeft.text = fruitLeft.text + "\n¡No repartiste la comida correctamente!";
                 repetitions += 1;
             }
         }else if (total <= 0){
-            fruitLeft.text = "Repartiste demasiada comida!";
+            fruitLeft.text = "¡Repartiste demasiada comida!";
         }
 
         if(total == 0)
@@ -112,7 +112,7 @@ public class Level1Logic : MonoBehaviour
                     Debug.Log("Ronda " + (i+1) + ": " + score[i]);
                 }
 
-                finish.text = "Nivel Completado!\n acertaste " + correct + " de 5 preguntas";
+                finish.text = "¡Nivel Completado!\n acertaste " + correct + " de 5 preguntas";
 
                 Invoke("finishLevel", 7.0f);
             }
