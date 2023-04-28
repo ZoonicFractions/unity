@@ -130,7 +130,7 @@ public class Level2Logic : MonoBehaviour
                     answer = valueAns2;
                     valueAns2 = answer * valueAns1;
 
-                    instructions.text = "�Qu� aro tiene la respuesta correcta de la siguiente operaci�n?\n" +
+                    instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
             valueAns2.ToString() + op + valueAns1.ToString();
                 }
                 else if (valueAns2 >= valueAns1)
@@ -138,7 +138,7 @@ public class Level2Logic : MonoBehaviour
                     answer = valueAns1;
                     valueAns1 = answer * valueAns2;
 
-                    instructions.text = "�Qu� aro tiene la respuesta correcta de la siguiente operaci�n?\n" +
+                    instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
                 }
             }
@@ -147,7 +147,7 @@ public class Level2Logic : MonoBehaviour
                 answer = valueAns1;
                 valueAns1 = answer * valueAns2;
 
-                instructions.text = "�Qu� aro tiene la respuesta correcta de la siguiente operaci�n?\n" +
+                instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
             }
             else if (valueAns2 >= valueAns1)
@@ -155,7 +155,7 @@ public class Level2Logic : MonoBehaviour
                 answer = valueAns2;
                 valueAns2 = answer * valueAns1;
 
-                instructions.text = "�Qu� aro tiene la respuesta correcta de la siguiente operaci�n?\n" +
+                instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
             valueAns2.ToString() + op + valueAns1.ToString();
             }
         }
@@ -167,7 +167,7 @@ public class Level2Logic : MonoBehaviour
 
         if(selectOp != 3)
         {
-            instructions.text = "�Qu� aro tiene la respuesta correcta de la siguiente operaci�n?\n" +
+            instructions.text = "¿Qué aro tiene la respuesta correcta de la siguiente operación?\n" +
         valueAns1.ToString() + op + valueAns2.ToString();
         }
         
@@ -245,20 +245,20 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "�CORRECTO!";
+                instructions.text = "¡CORRECTO!";
 
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(LeftText.text);
-                instructions.text = "�INCORRECTO!";
+                instructions.text = "¡INCORRECTO!";
             }
 
 
             if (round == 10)
             {
-                instructions.text += "\n�Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -283,20 +283,20 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "�CORRECTO!";
+                instructions.text = "¡CORRECTO!";
 
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(MiddleText.text);
-                instructions.text = "�INCORRECTO!";
+                instructions.text = "¡INCORRECTO!";
             }
 
 
             if (round == 10)
             {
-                instructions.text += "\n�Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
@@ -319,18 +319,18 @@ public class Level2Logic : MonoBehaviour
             {
                 score += 10;
 
-                instructions.text = "�CORRECTO!";
+                instructions.text = "¡CORRECTO!";
             }
             else
             {
                 Debug.Log(answer.ToString());
                 Debug.Log(RightText.text);
-                instructions.text = "�INCORRECTO!";
+                instructions.text = "¡INCORRECTO!";
             }
 
             if (round == 10)
             {
-                instructions.text += "\n�Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
+                instructions.text += "\n¡Terminaste!\nTu puntaje es de " + score.ToString() + "/100";
             }
 
             if (round < 10)
